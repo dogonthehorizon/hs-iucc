@@ -50,5 +50,5 @@ Or if you have stack's bin directory in your path you can run `install`:
 stack install && iucc --file path/to/sample/file.rkt
 ```
 
-[book]: https://mitpress.mit.edu/97802620"47760/essentials-of-compilation/
+[book]: https://mitpress.mit.edu/9780262047760/essentials-of-compilation/
 [Stack]: https://docs.haskellstack.org/en/stable/
