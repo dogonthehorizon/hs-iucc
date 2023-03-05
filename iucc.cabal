@@ -1,0 +1,148 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.35.1.
+--
+-- see: https://github.com/sol/hpack
+
+name:           iucc
+version:        0.1.0
+synopsis:       Haskell implementation of the IU Compiler Course
+category:       Compiler
+homepage:       https://github.com/dogonthehorizon/iucc#readme
+bug-reports:    https://github.com/dogonthehorizon/iucc/issues
+author:         Fernando Freire
+maintainer:     Fernando Freire <dogonthehorizon@gmail.com>
+copyright:      2023 Fernando Freire
+license:        MIT
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/dogonthehorizon/iucc
+
+library
+  exposed-modules:
+      LInt.Interpreter
+      LInt.Language
+      LInt.Parser
+  other-modules:
+      Paths_iucc
+  hs-source-dirs:
+      src
+  default-extensions:
+      BangPatterns
+      DefaultSignatures
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      EmptyCase
+      FlexibleContexts
+      FlexibleInstances
+      FunctionalDependencies
+      GeneralizedNewtypeDeriving
+      InstanceSigs
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      OverloadedStrings
+      PatternSynonyms
+      ScopedTypeVariables
+      ImportQualifiedPost
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      base >=4.7 && <5
+    , megaparsec
+    , text
+    , transformers
+  default-language: Haskell2010
+
+executable iucc
+  main-is: Main.hs
+  other-modules:
+      Cli
+      Paths_iucc
+  hs-source-dirs:
+      app
+  default-extensions:
+      BangPatterns
+      DefaultSignatures
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      EmptyCase
+      FlexibleContexts
+      FlexibleInstances
+      FunctionalDependencies
+      GeneralizedNewtypeDeriving
+      InstanceSigs
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      OverloadedStrings
+      PatternSynonyms
+      ScopedTypeVariables
+      ImportQualifiedPost
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      base >=4.7 && <5
+    , iucc
+    , megaparsec
+    , optparse-generic
+    , text
+    , transformers
+  default-language: Haskell2010
+
+test-suite iucc-test
+  type: exitcode-stdio-1.0
+  main-is: Tasty.hs
+  other-modules:
+      LInt.InterpreterTest
+      Paths_iucc
+  hs-source-dirs:
+      test
+  default-extensions:
+      BangPatterns
+      DefaultSignatures
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      EmptyCase
+      FlexibleContexts
+      FlexibleInstances
+      FunctionalDependencies
+      GeneralizedNewtypeDeriving
+      InstanceSigs
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      OverloadedStrings
+      PatternSynonyms
+      ScopedTypeVariables
+      ImportQualifiedPost
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-tool-depends:
+      tasty-discover:tasty-discover >=4.2.1 && <4.3
+  build-depends:
+      base >=4.7 && <5
+    , hedgehog
+    , iucc
+    , megaparsec
+    , tasty
+    , tasty-discover
+    , tasty-hedgehog
+    , tasty-hunit
+    , text
+    , transformers
+  default-language: Haskell2010
