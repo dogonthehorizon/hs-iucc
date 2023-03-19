@@ -5,6 +5,7 @@ module IUCC.Language.Expression
     XMinus,
     XXExpr,
     NoExtField (..),
+    DataConCantHappen,
   )
 where
 
@@ -29,3 +30,6 @@ type family XXExpr x
 
 -- | A compiler phase/language does not have an extension field.
 data NoExtField = NoExtField
+
+-- | A compiler phase/language that has no extensions.
+data DataConCantHappen

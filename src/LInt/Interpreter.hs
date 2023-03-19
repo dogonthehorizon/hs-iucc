@@ -12,7 +12,7 @@ where
 import Control.Monad.IO.Class (MonadIO (liftIO))
 import LInt.Language qualified as LInt
 
-interpretExpr' :: (MonadFail m, MonadIO m) => m Integer -> LInt.Expr -> m Integer
+interpretExpr' :: MonadIO m => m Integer -> LInt.Expr -> m Integer
 interpretExpr' readFn e =
   case e of
     LInt.Int a -> return a
@@ -26,13 +26,12 @@ interpretExpr' readFn e =
       e1' <- interpretExpr e1
       e2' <- interpretExpr e2
       return $ e1' - e2'
-    LInt.XExpr _ -> fail "Unreachable"
 
 -- | Interpret expressions in L_int.
 -- FIXME: the error message from readLn is unhelpful if this is not an int.
-interpretExpr :: (MonadFail m, MonadIO m) => LInt.Expr -> m Integer
+interpretExpr :: MonadIO m => LInt.Expr -> m Integer
 interpretExpr = interpretExpr' (liftIO readLn)
 
 -- | Interpret a program in L_int.
-interpret :: (MonadFail m, MonadIO m) => LInt.LInt -> m Integer
+interpret :: MonadIO m => LInt.LInt -> m Integer
 interpret (LInt.Program _ e) = interpretExpr e

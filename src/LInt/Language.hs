@@ -31,7 +31,10 @@ type instance XPlus LInt' = NoExtField
 
 type instance XMinus LInt' = NoExtField
 
-type instance XXExpr LInt' = NoExtField
+-- We note explicitly that LInt has no extensions beyond the core language.
+-- This means that we can ignore XXExpr in pattern matches.
+-- https://gitlab.haskell.org/ghc/ghc/-/wikis/implementing-trees-that-grow/trees-that-grow-guidance#the-extension-constructor
+type instance XXExpr LInt' = DataConCantHappen
 
 -- | A program in L_int.
 data LInt = Program () Expr
