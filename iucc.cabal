@@ -29,6 +29,8 @@ library
       LInt.Interpreter
       LInt.Language
       LInt.Parser
+      LVar.Interpreter
+      LVar.Language
   other-modules:
       Paths_iucc
   hs-source-dirs:
