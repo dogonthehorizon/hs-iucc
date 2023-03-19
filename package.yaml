@@ -41,6 +41,7 @@ default-extensions:
   - FlexibleInstances
   - FunctionalDependencies
   - GeneralizedNewtypeDeriving
+  - ImportQualifiedPost
   - InstanceSigs
   - LambdaCase
   - MultiParamTypeClasses
@@ -48,7 +49,7 @@ default-extensions:
   - OverloadedStrings
   - PatternSynonyms
   - ScopedTypeVariables
-  - ImportQualifiedPost
+  - TypeFamilies
 
 library:
   source-dirs: src

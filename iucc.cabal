@@ -25,6 +25,7 @@ source-repository head
 
 library
   exposed-modules:
+      IUCC.Language.Expression
       LInt.Interpreter
       LInt.Language
       LInt.Parser
@@ -46,6 +47,7 @@ library
       FlexibleInstances
       FunctionalDependencies
       GeneralizedNewtypeDeriving
+      ImportQualifiedPost
       InstanceSigs
       LambdaCase
       MultiParamTypeClasses
@@ -53,7 +55,7 @@ library
       OverloadedStrings
       PatternSynonyms
       ScopedTypeVariables
-      ImportQualifiedPost
+      TypeFamilies
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
@@ -83,6 +85,7 @@ executable iucc
       FlexibleInstances
       FunctionalDependencies
       GeneralizedNewtypeDeriving
+      ImportQualifiedPost
       InstanceSigs
       LambdaCase
       MultiParamTypeClasses
@@ -90,7 +93,7 @@ executable iucc
       OverloadedStrings
       PatternSynonyms
       ScopedTypeVariables
-      ImportQualifiedPost
+      TypeFamilies
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
@@ -123,6 +126,7 @@ test-suite iucc-test
       FlexibleInstances
       FunctionalDependencies
       GeneralizedNewtypeDeriving
+      ImportQualifiedPost
       InstanceSigs
       LambdaCase
       MultiParamTypeClasses
@@ -130,7 +134,7 @@ test-suite iucc-test
       OverloadedStrings
       PatternSynonyms
       ScopedTypeVariables
-      ImportQualifiedPost
+      TypeFamilies
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-tool-depends:
       tasty-discover:tasty-discover >=4.2.1 && <4.3

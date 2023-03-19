@@ -17,7 +17,7 @@ test_interpInt = testProperty
   $ property
   $ do
     i <- forAll genInteger
-    i' <- LInt.interpretExpr $ LInt.Int' i
+    i' <- LInt.interpretExpr $ LInt.Int i
     i === i'
 
 test_interpNeg :: TestTree
@@ -26,7 +26,7 @@ test_interpNeg = testProperty
   $ property
   $ do
     i <- forAll genInteger
-    i' <- LInt.interpretExpr $ LInt.Neg (LInt.Int' i)
+    i' <- LInt.interpretExpr $ LInt.Neg LInt.NoExtField (LInt.Int i)
     (-i) === i'
 
 test_interpPlus :: TestTree
@@ -36,7 +36,7 @@ test_interpPlus = testProperty
   $ do
     i <- forAll genInteger
     j <- forAll genInteger
-    r <- LInt.interpretExpr $ LInt.Plus (LInt.Int' i) (LInt.Int' j)
+    r <- LInt.interpretExpr $ LInt.Plus LInt.NoExtField (LInt.Int i) (LInt.Int j)
     (i + j) === r
 
 test_interpMinus :: TestTree
@@ -46,7 +46,7 @@ test_interpMinus = testProperty
   $ do
     i <- forAll genInteger
     j <- forAll genInteger
-    r <- LInt.interpretExpr $ LInt.Minus (LInt.Int' i) (LInt.Int' j)
+    r <- LInt.interpretExpr $ LInt.Minus LInt.NoExtField (LInt.Int i) (LInt.Int j)
     (i - j) === r
 
 test_interpRead :: TestTree
@@ -55,5 +55,5 @@ test_interpRead = testProperty
   $ property
   $ do
     i <- forAll genInteger
-    r <- LInt.interpretExpr' (pure i) LInt.Read'
+    r <- LInt.interpretExpr' (pure i) LInt.Read
     i === r

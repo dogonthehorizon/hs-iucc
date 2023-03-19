@@ -11,20 +11,27 @@
 --            | (Prim '+ (exp exp)) | (Prim '- (exp exp))
 -- L_int ::= (Program '() exp)
 module LInt.Language
-  ( Expr (..),
+  ( Expr,
     LInt (..),
+    module IUCC.Language.Expression,
   )
 where
 
--- | Expressions in L_int.
-data Expr
-  = Int' Integer
-  | Read'
-  | Neg Expr
-  | Plus Expr Expr
-  | Minus Expr Expr
-  deriving (Show)
+import IUCC.Language.Expression
+
+-- We have no extensions to the language because the base TTG idiom expression
+-- contains everything in LInt.
+data LInt'
+
+type Expr = Expr' LInt'
+
+type instance XNeg LInt' = NoExtField
+
+type instance XPlus LInt' = NoExtField
+
+type instance XMinus LInt' = NoExtField
+
+type instance XXExpr LInt' = NoExtField
 
 -- | A program in L_int.
 data LInt = Program () Expr
-  deriving (Show)
