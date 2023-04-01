@@ -12,24 +12,24 @@ where
 import Control.Monad.IO.Class (MonadIO (liftIO))
 import LInt.Language qualified as LInt
 
-interpretExpr' :: MonadIO m => m Integer -> LInt.Expr -> m Integer
+interpretExpr' :: MonadIO m => m Integer -> LInt.ExpInt -> m Integer
 interpretExpr' readFn e =
   case e of
-    LInt.Int a -> return a
-    LInt.Read -> readFn
-    LInt.Neg _ e' -> negate <$> interpretExpr e'
-    LInt.Plus _ e1 e2 -> do
+    LInt.IntLit a -> return a
+    LInt.IntRead -> readFn
+    LInt.IntNeg e' -> negate <$> interpretExpr e'
+    LInt.IntPlus e1 e2 -> do
       e1' <- interpretExpr e1
       e2' <- interpretExpr e2
       return $ e1' + e2'
-    LInt.Minus _ e1 e2 -> do
+    LInt.IntMinus e1 e2 -> do
       e1' <- interpretExpr e1
       e2' <- interpretExpr e2
       return $ e1' - e2'
 
 -- | Interpret expressions in L_int.
 -- FIXME: the error message from readLn is unhelpful if this is not an int.
-interpretExpr :: MonadIO m => LInt.Expr -> m Integer
+interpretExpr :: MonadIO m => LInt.ExpInt -> m Integer
 interpretExpr = interpretExpr' (liftIO readLn)
 
 -- | Interpret a program in L_int.

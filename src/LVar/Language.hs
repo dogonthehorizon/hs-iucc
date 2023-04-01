@@ -9,31 +9,51 @@
 -- exp   ::= *exp from L_int* | (Var var) | (Let var exp exp)
 -- L_var ::= (Program '() exp)
 module LVar.Language
-  ( Expr,
+  ( ExpVar (),
     LVar (..),
-    XVar (..),
-    module IUCC.Language.Expression,
+    pattern VarLit,
+    pattern VarRead,
+    pattern VarNeg,
+    pattern VarPlus,
+    pattern VarMinus,
+    pattern VarVar,
   )
 where
 
 import Data.Text (Text)
-import IUCC.Language.Expression
+import IUCC.Language.Expression (ExprX (..), XMinus, XNeg, XPlus, XXExpr)
 
-data LVar'
+type ExpVar = ExprX Var
 
-data XVar = XVar Text Integer
+data Var
 
-type Expr = Expr' LVar'
+type instance XNeg Var = ()
 
-type instance XNeg LVar' = NoExtField
+type instance XPlus Var = ()
 
-type instance XPlus LVar' = NoExtField
-
-type instance XMinus LVar' = NoExtField
+type instance XMinus Var = ()
 
 -- In contrast to LInt, we do want to extend this language with the notion of
 -- local variables
-type instance XXExpr LVar' = XVar
+type instance XXExpr Var = (Text, Integer)
+
+pattern VarLit :: Integer -> ExpVar
+pattern VarLit i = IntX i
+
+pattern VarRead :: ExpVar
+pattern VarRead = ReadX
+
+pattern VarNeg :: ExpVar -> ExpVar
+pattern VarNeg e = NegX () e
+
+pattern VarPlus :: ExpVar -> ExpVar -> ExpVar
+pattern VarPlus e1 e2 = PlusX () e1 e2
+
+pattern VarMinus :: ExpVar -> ExpVar -> ExpVar
+pattern VarMinus e1 e2 = MinusX () e1 e2
+
+pattern VarVar :: Text -> Integer -> ExpVar
+pattern VarVar n i <- ExprX (n, i)
 
 -- | A program in L_int.
-data LVar = Program () Expr
+data LVar = Program () ExpVar

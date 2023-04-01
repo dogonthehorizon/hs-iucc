@@ -1,24 +1,22 @@
 module IUCC.Language.Expression
-  ( Expr' (..),
+  ( ExprX (..),
     XNeg,
     XPlus,
     XMinus,
     XXExpr,
-    NoExtField (..),
-    DataConCantHappen,
   )
 where
 
 import Prelude hiding (Int, Read)
 
 -- | The core expressions in our language.
-data Expr' x
-  = Int Integer
-  | Read
-  | Neg (XNeg x) (Expr' x)
-  | Plus (XPlus x) (Expr' x) (Expr' x)
-  | Minus (XMinus x) (Expr' x) (Expr' x)
-  | XExpr !(XXExpr x)
+data ExprX x
+  = IntX !Integer
+  | ReadX
+  | NegX !(XNeg x) (ExprX x)
+  | PlusX !(XPlus x) (ExprX x) (ExprX x)
+  | MinusX !(XMinus x) (ExprX x) (ExprX x)
+  | ExprX !(XXExpr x)
 
 type family XNeg x
 
@@ -27,9 +25,3 @@ type family XPlus x
 type family XMinus x
 
 type family XXExpr x
-
--- | A compiler phase/language does not have an extension field.
-data NoExtField = NoExtField
-
--- | A compiler phase/language that has no extensions.
-data DataConCantHappen

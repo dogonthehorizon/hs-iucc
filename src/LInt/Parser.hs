@@ -10,7 +10,7 @@
 -- L_int ::= exp
 module LInt.Parser (parse) where
 
-import Control.Applicative (empty, liftA3, optional)
+import Control.Applicative (empty, liftA2, optional)
 import Control.Monad.IO.Class (MonadIO (liftIO))
 import Data.Text (Text)
 import Data.Text.IO qualified as T
@@ -34,18 +34,21 @@ symbol = L.symbol spaceConsumer
 parenthesized :: Parser a -> Parser a
 parenthesized = between (symbol "(") (symbol ")")
 
-pInt :: Parser LInt.Expr
-pInt = LInt.Int <$> lexeme L.decimal
+pInt :: Parser LInt.ExpInt
+pInt = LInt.IntLit <$> lexeme L.decimal
 
-pRead :: Parser LInt.Expr
-pRead = LInt.Read <$ parenthesized (symbol "read")
+pRead :: Parser LInt.ExpInt
+pRead = LInt.IntRead <$ parenthesized (symbol "read")
 
-pPlus :: Parser LInt.Expr
+pPlus :: Parser LInt.ExpInt
 pPlus =
-  parenthesized $
-    symbol "+" >> liftA3 LInt.Plus (pure LInt.NoExtField) pExpr pExpr
+  parenthesized $ do
+    _ <- symbol "+"
+    e1 <- pExpr
+    e2 <- pExpr
+    return $ LInt.IntPlus e1 e2
 
-pMinus :: Parser LInt.Expr
+pMinus :: Parser LInt.ExpInt
 pMinus =
   parenthesized $ do
     _ <- symbol "-"
@@ -53,11 +56,11 @@ pMinus =
     (optional . try $ pExpr)
       >>= \case
         -- We have a minus operation
-        Just e2 -> return $ LInt.Minus LInt.NoExtField e1 e2
+        Just e2 -> return $ LInt.IntMinus e1 e2
         -- Otherwise unary argument is negation
-        Nothing -> return $ LInt.Neg LInt.NoExtField e1
+        Nothing -> return $ LInt.IntNeg e1
 
-pExpr :: Parser LInt.Expr
+pExpr :: Parser LInt.ExpInt
 pExpr =
   choice
     [ pInt,
